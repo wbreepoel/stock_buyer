@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quoted
+{% endblock %}
+
+{% block main %}
+ <p>Current price of {{stockInfo["Name"]}} {{stockInfo["Symbol"]}} = {{stockInfo["Price"]}} </p>
+
+{% endblock %}

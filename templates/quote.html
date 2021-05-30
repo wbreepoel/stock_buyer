@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    <form action="/quote" method="post">
+        <div class = "form-group">
+            <input class = "form-control" autocomplete = "off" autofocus name = "symbol" type="text" placeholder = "Enter symbol">
+        </div>
+
+        <div>
+            <button class="btn btn-primary" type = "submit">Look up current price</button>
+        </div>
+
+    </form>
+
+{% endblock %}

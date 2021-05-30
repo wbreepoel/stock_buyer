@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for symbols...">
+    <div style = "overflow-x:auto;">
+    <table class = "table table-dark"  id = "myTable">
+        <thead class = "header">
+            <th>Name</th>
+            <th>Symbol</th>
+            <th>Amount of Shares</th>
+            <th>Current Price</th>
+            <th>Total Value</th>
+        </thead>
+
+        <tfoot>
+            <tr>
+                <td colspan = "4"></td>
+                <td>{{total_cash | usd}}</td>
+            </tr>
+        </tfoot>
+
+        <tbody>
+            {% for i in stocks %}
+            <tr>
+                <td>{{i.name}}</td>
+                <td>{{i.symbol}}</td>
+                <td>{{i.shares}}</td>
+                <td>{{i.price | usd}}</td>
+                <td>{{i.total | usd}}</td>
+
+            </tr>
+
+            {% endfor %}
+
+            <tr>
+                 <td colspan = "4"><em>Available Cash</em></td>
+                 <td>{{user_cash.cash | usd}}</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+    </div>
+
+    <script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
+{% endblock %}

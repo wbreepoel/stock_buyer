@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+History
+{% endblock %}
+
+{% block main %}
+
+
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for...">
+<div style = "overflow-x:auto;">
+<table class="table table-dark" id = "myTable">
+  <thead class = "header">
+    <th>Symbol</th>
+    <th>Shares</th>
+    <th>Price</th>
+    <th>Transacted</th>
+    <th>Operation</th>
+  </thead>
+  <tbody>
+    {% for stock in stocks %}
+    <tr>
+      <td>{{stock.symbol}}</td>
+      <td>{{stock.amount_of_shares}}</td>
+      <td>{{stock.price | usd}}</td>
+      <td>{{stock.transacted}}</td>
+      <td>{{stock.operation}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+
+
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
+{% endblock %}
+
